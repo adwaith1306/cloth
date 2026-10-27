@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | VYBE Clothing</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/frontend/css/style.css">
+</head>
+<body style="background: #080808;">
+
+    <!-- Top Admin Header -->
+    <header class="py-3 px-4 border-bottom border-secondary border-opacity-25 d-flex justify-content-between align-items-center" style="background: #111111;">
+        <div class="d-flex align-items-center gap-3">
+            <a class="brand-logo" href="/index.html">
+                VYBE<span class="dot"></span>
+            </a>
+            <span class="badge bg-warning text-dark text-uppercase fw-bold font-mono px-2 py-1" style="font-size: 0.72rem;">ADMIN PORTAL</span>
+        </div>
+
+        <div class="d-flex align-items-center gap-4">
+            <div class="d-flex align-items-center gap-2 text-muted" style="font-size: 0.85rem;">
+                <i class="bi bi-person-circle text-white"></i>
+                <span id="adminUserBadge" class="text-white fw-bold">Administrator</span>
+            </div>
+            <a href="/index.html" class="btn btn-sm btn-vybe-outline" style="font-size: 0.75rem;">
+                <i class="bi bi-box-arrow-up-right me-1"></i> VIEW STORE
+            </a>
+            <button class="btn btn-sm btn-outline-danger" onclick="handleLogout()" style="font-size: 0.75rem;">
+                LOGOUT
+            </button>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Admin Navigation Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0 admin-sidebar">
+                <div class="admin-nav-item active" data-target="tabOverview">
+                    <i class="bi bi-speedometer2 fs-5"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="admin-nav-item" data-target="tabOrders">
+                    <i class="bi bi-box-seam fs-5"></i>
+                    <span>Orders</span>
+                </div>
+                <div class="admin-nav-item" data-target="tabProducts">
+                    <i class="bi bi-tag fs-5"></i>
+                    <span>Products</span>
+                </div>
+                <div class="admin-nav-item" data-target="tabCoupons">
+                    <i class="bi bi-percent fs-5"></i>
+                    <span>Coupons</span>
+                </div>
+            </div>
+
+            <!-- Admin Main Workspace -->
+            <div class="col-md-9 col-lg-10 p-4 p-md-5">
+
+                <!-- 1. DASHBOARD OVERVIEW PANE -->
+                <div class="admin-tab-pane" id="tabOverview">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-uppercase fw-bold text-white mb-0">Overview Analytics</h3>
+                        <button class="btn btn-sm btn-vybe-dark" onclick="loadDashboardStats()">
+                            <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+                        </button>
+                    </div>
+
+                    <!-- KPI Cards Grid -->
+                    <div class="row g-3 mb-5">
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="kpi-card">
+                                <div class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.1em;">Total Gross Revenue</div>
+                                <div class="kpi-value text-white" id="kpiTotalSales">₹0</div>
+                                <div class="text-success mt-2" style="font-size: 0.75rem;"><i class="bi bi-graph-up me-1"></i> Active store transactions</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="kpi-card">
+                                <div class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.1em;">Total Orders</div>
+                                <div class="kpi-value text-white" id="kpiTotalOrders">0</div>
+                                <div class="text-muted mt-2" style="font-size: 0.75rem;">All time</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="kpi-card">
+                                <div class="text-uppercase text-warning" style="font-size: 0.75rem; letter-spacing: 0.1em;">Pending Orders</div>
+                                <div class="kpi-value text-warning" id="kpiPendingOrders">0</div>
+                                <div class="text-muted mt-2" style="font-size: 0.75rem;">Awaiting dispatch</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="kpi-card">
+                                <div class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.1em;">Active Catalog</div>
+                                <div class="kpi-value text-white" id="kpiTotalProducts">0</div>
+                                <div class="text-muted mt-2" style="font-size: 0.75rem;">Products listed</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="kpi-card">
+                                <div class="text-uppercase text-danger" style="font-size: 0.75rem; letter-spacing: 0.1em;">Low Stock Items</div>
+                                <div class="kpi-value text-danger" id="kpiLowStock">0</div>
+                                <div class="text-muted mt-2" style="font-size: 0.75rem;">Under 5 units</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Low Stock Inventory Alerts -->
+                    <div class="p-4" style="background: var(--bg-surface); border: 1px solid var(--border-subtle);">
+                        <h5 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.95rem; letter-spacing: 0.08em;">
+                            <i class="bi bi-exclamation-triangle text-danger me-2"></i> Low Stock Alerts (Action Required)
+                        </h5>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover mb-0" style="font-size: 0.88rem;">
+                                <thead>
+                                    <tr class="text-muted">
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Variant (Size/Color)</th>
+                                        <th>Current Stock</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lowStockTableBody">
+                                    <!-- Injected via admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ORDERS MANAGEMENT PANE -->
+                <div class="admin-tab-pane" id="tabOrders" style="display: none;">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                        <h3 class="text-uppercase fw-bold text-white mb-0">Order Fulfillment</h3>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input type="text" id="orderSearchInput" class="form-control form-control-vybe" placeholder="Search order #, customer, phone..." style="width: 260px;">
+                            <select id="orderStatusFilter" class="form-select form-control-vybe" style="width: 170px;">
+                                <option value="">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Confirmed">Confirmed</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Orders List Container -->
+                    <div id="adminOrdersList">
+                        <!-- Populated dynamically via admin.js -->
+                    </div>
+                </div>
+
+                <!-- 3. PRODUCTS CATALOG PANE -->
+                <div class="admin-tab-pane" id="tabProducts" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-uppercase fw-bold text-white mb-0">Product Catalog</h3>
+                        <button class="btn btn-vybe" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                            <i class="bi bi-plus-lg me-2"></i> ADD NEW PRODUCT
+                        </button>
+                    </div>
+
+                    <div class="table-responsive" style="background: var(--bg-surface); border: 1px solid var(--border-subtle);">
+                        <table class="table table-dark table-hover align-middle mb-0" style="font-size: 0.88rem;">
+                            <thead>
+                                <tr class="text-muted">
+                                    <th>Image</th>
+                                    <th>Product & Slug</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Discount Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTableBody">
+                                <!-- Populated dynamically via admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. COUPONS PANE -->
+                <div class="admin-tab-pane" id="tabCoupons" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-uppercase fw-bold text-white mb-0">Promotions & Coupons</h3>
+                        <button class="btn btn-vybe" data-bs-toggle="modal" data-bs-target="#addCouponModal">
+                            <i class="bi bi-plus-lg me-2"></i> CREATE COUPON
+                        </button>
+                    </div>
+
+                    <div class="row" id="adminCouponsList">
+                        <!-- Populated dynamically via admin.js -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content modal-content-vybe">
+                <div class="modal-header modal-header-vybe">
+                    <h5 class="modal-title text-uppercase fw-bold">Add Streetwear Product</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="addProductForm">
+                    <div class="modal-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label class="form-label-vybe">Product Title *</label>
+                                <input type="text" id="newProdName" class="form-control form-control-vybe" required placeholder="e.g. Acid Washed Tactical Cargo">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label-vybe">Category *</label>
+                                <select id="newProdCategory" class="form-select form-control-vybe" required></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label-vybe">Gender / Fit</label>
+                                <select id="newProdGender" class="form-select form-control-vybe">
+                                    <option value="Unisex">Unisex</option>
+                                    <option value="Men">Men</option>
+                                    <option value="Women">Women</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label-vybe">Price (₹ MRP) *</label>
+                                <input type="number" id="newProdPrice" class="form-control form-control-vybe" required min="100" placeholder="2999">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label-vybe">Discount Price (₹ Sale)</label>
+                                <input type="number" id="newProdDiscount" class="form-control form-control-vybe" min="0" placeholder="2499">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label-vybe">Description *</label>
+                                <textarea id="newProdDescription" class="form-control form-control-vybe" rows="3" required placeholder="Cut, styling, pocket architecture..."></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label-vybe">Material Details (GSM & Fabric)</label>
+                                <input type="text" id="newProdMaterial" class="form-control form-control-vybe" placeholder="e.g. 100% French Terry Cotton (450 GSM)">
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label-vybe">Primary Image URL *</label>
+                                <input type="url" id="newProdImage" class="form-control form-control-vybe" required placeholder="https://images.unsplash.com/photo-...">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label-vybe">Initial Stock Per Size (S, M, L, XL)</label>
+                                <input type="number" id="newProdStock" class="form-control form-control-vybe" value="15" min="1">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label-vybe">Colorway Name</label>
+                                <input type="text" id="newProdColor" class="form-control form-control-vybe" value="Washed Black">
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center gap-4 mt-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newProdFeatured" checked>
+                                    <label class="form-check-label text-white" for="newProdFeatured">Featured</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newProdTrending" checked>
+                                    <label class="form-check-label text-white" for="newProdTrending">Trending</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="button" class="btn btn-vybe-dark" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-vybe">Create Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Coupon Modal -->
+    <div class="modal fade" id="addCouponModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-vybe">
+                <div class="modal-header modal-header-vybe">
+                    <h5 class="modal-title text-uppercase fw-bold">Create Promo Coupon</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="addCouponForm">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label-vybe">Coupon Code (Uppercase) *</label>
+                            <input type="text" id="newCouponCode" class="form-control form-control-vybe text-uppercase font-mono" required placeholder="SUMMER25">
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label-vybe">Discount Type *</label>
+                                <select id="newCouponType" class="form-select form-control-vybe">
+                                    <option value="percent">Percentage (%)</option>
+                                    <option value="amount">Flat Amount (₹)</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label-vybe">Value *</label>
+                                <input type="number" id="newCouponValue" class="form-control form-control-vybe" required min="1" placeholder="20">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label-vybe">Minimum Order Value (₹)</label>
+                            <input type="number" id="newCouponMin" class="form-control form-control-vybe" value="1999" min="0">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="button" class="btn btn-vybe-dark" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-vybe">Save Coupon</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core JS -->
+    <script src="/frontend/js/main.js"></script>
+    <script src="/frontend/js/admin.js"></script>
+</body>
+</html>

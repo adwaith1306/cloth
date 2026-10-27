@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | VYBE Clothing</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/frontend/css/style.css">
+</head>
+<body>
+
+    <!-- Simple Secure Header -->
+    <header class="py-3 border-bottom border-secondary border-opacity-25" style="background: var(--bg-surface);">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="brand-logo" href="/index.html">
+                VYBE<span class="dot"></span>
+            </a>
+            <div class="d-flex align-items-center gap-2 text-muted" style="font-size: 0.8rem; letter-spacing: 0.1em;">
+                <i class="bi bi-shield-lock-fill text-success"></i> 256-BIT ENCRYPTED CHECKOUT
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout Main Section -->
+    <section class="py-5">
+        <div class="container" id="checkoutContainer">
+            <div class="row g-5">
+                <!-- Customer Details Form Column -->
+                <div class="col-lg-7">
+                    <form id="checkoutForm">
+                        <!-- Contact Info -->
+                        <div class="p-4 mb-4" style="background: var(--bg-surface); border: 1px solid var(--border-subtle);">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="text-uppercase fw-bold text-white mb-0" style="font-size: 1rem; letter-spacing: 0.08em;">
+                                    1. Contact Information
+                                </h5>
+                                <div id="loginPromptCheckout" style="font-size: 0.8rem;">
+                                    Already have an account? <a href="/login.html" class="text-white text-decoration-underline">Log in</a>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label-vybe" for="custName">Full Name *</label>
+                                    <input type="text" class="form-control form-control-vybe" id="custName" required placeholder="Alexander Thorne">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label-vybe" for="custEmail">Email Address *</label>
+                                    <input type="email" class="form-control form-control-vybe" id="custEmail" required placeholder="alex@example.com">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label-vybe" for="custPhone">Contact Phone Number *</label>
+                                    <input type="tel" class="form-control form-control-vybe" id="custPhone" required placeholder="+91 98765 43210">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shipping Address -->
+                        <div class="p-4 mb-4" style="background: var(--bg-surface); border: 1px solid var(--border-subtle);">
+                            <h5 class="text-uppercase fw-bold text-white mb-3" style="font-size: 1rem; letter-spacing: 0.08em;">
+                                2. Shipping Destination
+                            </h5>
+
+                            <!-- Saved Addresses for logged-in user -->
+                            <div id="savedAddressesContainer" class="mb-3" style="display: none;">
+                                <label class="form-label-vybe">Use Saved Address</label>
+                                <select id="savedAddressSelect" class="form-select form-control-vybe"></select>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label-vybe" for="custAddress">Street Address / Apartment / Landmark *</label>
+                                    <input type="text" class="form-control form-control-vybe" id="custAddress" required placeholder="Flat 402, Highline Residency, Bandra West">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label-vybe" for="custCity">City *</label>
+                                    <input type="text" class="form-control form-control-vybe" id="custCity" required placeholder="Mumbai">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label-vybe" for="custState">State *</label>
+                                    <input type="text" class="form-control form-control-vybe" id="custState" required placeholder="Maharashtra">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label-vybe" for="custPostal">PIN Code *</label>
+                                    <input type="text" class="form-control form-control-vybe font-mono" id="custPostal" required placeholder="400050">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label-vybe" for="orderNotes">Delivery Instructions (Optional)</label>
+                                    <input type="text" class="form-control form-control-vybe" id="orderNotes" placeholder="e.g., Leave at security desk, call before arrival">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="p-4 mb-4" style="background: var(--bg-surface); border: 1px solid var(--border-subtle);">
+                            <h5 class="text-uppercase fw-bold text-white mb-3" style="font-size: 1rem; letter-spacing: 0.08em;">
+                                3. Payment Method
+                            </h5>
+
+                            <!-- COD (Active) -->
+                            <div class="form-check p-3 mb-3 border border-light border-opacity-25" style="background: var(--bg-surface-elevated);">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="paymentCOD" value="COD" checked>
+                                <label class="form-check-label text-white d-flex justify-content-between align-items-center w-100 ps-2" for="paymentCOD">
+                                    <div>
+                                        <div class="fw-bold"><i class="bi bi-cash-stack me-2 text-warning"></i> Cash on Delivery (COD)</div>
+                                        <div class="text-muted" style="font-size: 0.8rem;">Pay cash or UPI scan at your doorstep upon delivery.</div>
+                                    </div>
+                                    <span class="badge bg-success">ACTIVE</span>
+                                </label>
+                            </div>
+
+                            <!-- Online Gateway Notice -->
+                            <div class="form-check p-3 border border-secondary border-opacity-25 opacity-75" style="background: rgba(255,255,255,0.02);">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="paymentRazorpay" disabled>
+                                <label class="form-check-label text-muted d-flex justify-content-between align-items-center w-100 ps-2" for="paymentRazorpay">
+                                    <div>
+                                        <div class="fw-bold"><i class="bi bi-credit-card me-2"></i> Online Payment (UPI / Cards / NetBanking)</div>
+                                        <div style="font-size: 0.78rem;">Razorpay Gateway Integration Ready (Configure keys in production)</div>
+                                    </div>
+                                    <span class="badge bg-secondary">COMING SOON</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Order Button -->
+                        <button type="submit" id="placeOrderBtn" class="btn btn-vybe w-100 py-3 fs-6">
+                            COMPLETE ORDER (COD) <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Order Breakdown Column -->
+                <div class="col-lg-5">
+                    <div class="order-summary-card">
+                        <h5 class="text-uppercase fw-bold text-white mb-4" style="font-size: 1.05rem; letter-spacing: 0.08em;">
+                            ORDER SUMMARY
+                        </h5>
+
+                        <!-- Items List -->
+                        <div id="checkoutItemsList" class="mb-4">
+                            <!-- Populated dynamically via checkout.js -->
+                        </div>
+
+                        <!-- Financials -->
+                        <div class="summary-row">
+                            <span class="text-muted">Subtotal</span>
+                            <span class="font-mono text-white fw-bold" id="checkoutSubtotal">₹0</span>
+                        </div>
+
+                        <div class="summary-row" id="checkoutDiscountRow" style="display: none;">
+                            <span class="text-success" id="checkoutCouponLabel">Discount</span>
+                            <span class="font-mono text-success fw-bold" id="checkoutDiscount">-₹0</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span class="text-muted">Express Shipping</span>
+                            <span class="font-mono text-white fw-bold" id="checkoutShipping">FREE</span>
+                        </div>
+
+                        <div class="summary-total-row">
+                            <span>TOTAL DUE</span>
+                            <span class="font-mono text-white" id="checkoutTotal">₹0</span>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 text-muted" style="font-size: 0.75rem;">
+                            By completing your order, you agree to VYBE Clothing's Terms of Service and Privacy Policy. All items shipped in custom sustainable dustproof streetwear packaging.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core JS -->
+    <script src="/frontend/js/main.js"></script>
+    <script src="/frontend/js/checkout.js"></script>
+</body>
+</html>

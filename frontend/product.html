@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | VYBE Clothing</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/frontend/css/style.css">
+</head>
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar text-center">
+        <div class="container">
+            FREE EXPRESS SHIPPING ACROSS INDIA ON ORDERS OVER ₹1,999 &bull; USE CODE <strong class="text-white">WELCOME10</strong> FOR 10% OFF
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-vybe">
+        <div class="container">
+            <a class="brand-logo" href="/index.html">
+                VYBE<span class="dot"></span>
+            </a>
+
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#vybeNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="vybeNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link nav-link-vybe" href="/index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-vybe" href="/shop.html">Shop All</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-vybe" href="/shop.html?gender=Men">Men</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-vybe" href="/shop.html?gender=Women">Women</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-vybe" href="/shop.html?category=hoodies-sweatshirts">Hoodies</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-vybe" href="/about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-vybe" href="/contact.html">Contact</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="/shop.html" class="nav-icon-btn" title="Search Catalog"><i class="bi bi-search"></i></a>
+                    <div id="navUserContainer"></div>
+                    <a href="/cart.html" class="nav-icon-btn position-relative" title="Shopping Bag">
+                        <i class="bi bi-bag"></i>
+                        <span class="nav-badge cart-count-badge" style="display: none;">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="container pt-4 pb-2">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;">
+                <li class="breadcrumb-item"><a href="/index.html" class="text-muted text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a href="/shop.html" class="text-muted text-decoration-none">Shop</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page" id="breadcrumbProductName">Loading...</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Product Detail Section -->
+    <section class="pb-5" id="productDetailContainer">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Gallery Column -->
+                <div class="col-lg-7">
+                    <div class="product-main-gallery">
+                        <div class="product-main-img-box">
+                            <img id="productMainImage" src="" alt="Product Main" class="img-fluid">
+                        </div>
+                        <div class="product-thumbnails" id="productThumbnails">
+                            <!-- Thumbnails injected via products.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Purchase Info Column -->
+                <div class="col-lg-5">
+                    <span id="productCategoryBadge" class="badge bg-secondary text-uppercase tracking-wider-custom mb-2" style="font-size: 0.72rem;">
+                        STREETWEAR
+                    </span>
+                    <h1 id="productTitle" class="text-uppercase fw-bold text-white mb-2" style="font-size: 2rem;">
+                        Loading...
+                    </h1>
+
+                    <!-- Rating & Reviews trigger -->
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="text-warning fs-6">
+                            <i class="bi bi-star-fill"></i>
+                            <span id="productRatingScore" class="fw-bold text-white ms-1">4.8</span>
+                        </div>
+                        <span class="text-muted" style="font-size: 0.82rem;" id="productReviewCount">(0 reviews)</span>
+                        <a href="#reviewsSection" class="text-muted text-decoration-underline ms-2" style="font-size: 0.82rem;">Read Reviews</a>
+                    </div>
+
+                    <!-- Price Row -->
+                    <div class="d-flex align-items-baseline gap-3 mb-4">
+                        <span class="fs-2 fw-bold font-mono text-white" id="productCurrentPrice">₹0</span>
+                        <span class="fs-5 text-muted text-decoration-line-through font-mono" id="productOriginalPrice" style="display: none;">₹0</span>
+                        <span class="badge bg-danger text-white px-2 py-1" id="productDiscountPercent" style="display: none;">0% OFF</span>
+                    </div>
+
+                    <!-- Short Description -->
+                    <p class="text-light mb-4" id="productDescription" style="line-height: 1.6; font-size: 0.95rem;">
+                        ...
+                    </p>
+
+                    <!-- Color Selector -->
+                    <div class="mb-4">
+                        <div class="form-label-vybe">Select Color</div>
+                        <div class="d-flex flex-wrap gap-2" id="productColorsContainer">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Size Selector & Size Guide -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="form-label-vybe mb-0">Select Size</span>
+                            <button type="button" class="btn btn-link text-muted p-0 text-decoration-underline" style="font-size: 0.78rem;" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">
+                                <i class="bi bi-rulers me-1"></i> Size Guide
+                            </button>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2" id="productSizesContainer">
+                            <!-- Injected dynamically -->
+                        </div>
+                        <div id="productStockStatus" class="mt-2" style="font-size: 0.82rem;"></div>
+                    </div>
+
+                    <!-- Quantity Stepper -->
+                    <div class="mb-4">
+                        <div class="form-label-vybe">Quantity</div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="qty-counter">
+                                <button type="button" onclick="adjustDetailQty(-1)">-</button>
+                                <input type="text" id="productQuantityInput" value="1" readonly>
+                                <button type="button" onclick="adjustDetailQty(1)">+</button>
+                            </div>
+                            <span class="text-muted" style="font-size: 0.8rem;">Max 10 per order</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-3 mb-5">
+                        <button class="btn btn-vybe py-3" onclick="handleAddToCartDetail(false)">
+                            <i class="bi bi-bag-plus me-2"></i> ADD TO BAG
+                        </button>
+                        <button class="btn btn-vybe-outline py-3" onclick="handleAddToCartDetail(true)">
+                            BUY NOW WITH COD <i class="bi bi-lightning-charge ms-1"></i>
+                        </button>
+                    </div>
+
+                    <!-- Product Details Accordion -->
+                    <div class="accordion accordion-flush" id="productSpecsAccordion">
+                        <div class="accordion-item" style="background: transparent; border-bottom: 1px solid var(--border-subtle);">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed text-white text-uppercase" style="background: transparent; box-shadow: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterial">
+                                    <i class="bi bi-layers me-2 text-warning"></i> Material & Fabric Weight
+                                </button>
+                            </h2>
+                            <div id="collapseMaterial" class="accordion-collapse collapse" data-bs-parent="#productSpecsAccordion">
+                                <div class="accordion-body text-muted pt-0" style="font-size: 0.88rem;" id="productMaterialDetails">
+                                    100% Combed Heavy Cotton (450 GSM). Pre-shrunk, fleece interior, ribbed cuffs and hem.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item" style="background: transparent; border-bottom: 1px solid var(--border-subtle);">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed text-white text-uppercase" style="background: transparent; box-shadow: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseShipping">
+                                    <i class="bi bi-truck me-2 text-warning"></i> Shipping & 7-Day Returns
+                                </button>
+                            </h2>
+                            <div id="collapseShipping" class="accordion-collapse collapse" data-bs-parent="#productSpecsAccordion">
+                                <div class="accordion-body text-muted pt-0" style="font-size: 0.88rem;">
+                                    Dispatched within 24 hours. Express pan-India delivery arrives in 2–4 business days. Free shipping on orders over ₹1,999. If you aren't completely satisfied with the fit, exchange or return within 7 days.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-5 border-top border-secondary border-opacity-25" id="reviewsSection" style="background: var(--bg-surface);">
+        <div class="container py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <span class="tracking-widest-custom text-warning" style="font-size: 0.78rem;">COMMUNITY FEEDBACK</span>
+                    <h3 class="text-uppercase fw-bold text-white mt-1 mb-0">CUSTOMER REVIEWS</h3>
+                </div>
+                <button class="btn btn-vybe-outline" data-bs-toggle="modal" data-bs-target="#writeReviewModal">
+                    <i class="bi bi-pencil-square me-2"></i> WRITE A REVIEW
+                </button>
+            </div>
+
+            <div id="reviewsListContainer">
+                <!-- Injected via products.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="py-5">
+        <div class="container py-4">
+            <h3 class="text-uppercase fw-bold text-white mb-4">YOU MAY ALSO LIKE</h3>
+            <div class="row g-4" id="relatedProductsGrid">
+                <!-- Injected via products.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Guide Modal -->
+    <div class="modal fade" id="sizeGuideModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-vybe">
+                <div class="modal-header modal-header-vybe">
+                    <h5 class="modal-title text-uppercase fw-bold">Streetwear Size Guide</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted" style="font-size: 0.85rem;">
+                        All VYBE pieces follow a relaxed contemporary streetwear drape with dropped shoulders. Order your normal size for the intended boxy silhouette.
+                    </p>
+                    <table class="table table-dark table-bordered font-mono text-center" style="font-size: 0.82rem;">
+                        <thead>
+                            <tr class="text-muted">
+                                <th>Size</th>
+                                <th>Chest (in)</th>
+                                <th>Length (in)</th>
+                                <th>Shoulder (in)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>XS</td><td>40"</td><td>27"</td><td>21"</td></tr>
+                            <tr><td>S</td><td>42"</td><td>28"</td><td>22"</td></tr>
+                            <tr><td>M</td><td>44"</td><td>29"</td><td>23"</td></tr>
+                            <tr><td>L</td><td>46"</td><td>30"</td><td>24"</td></tr>
+                            <tr><td>XL</td><td>48"</td><td>31"</td><td>25"</td></tr>
+                            <tr><td>XXL</td><td>50"</td><td>32"</td><td>26"</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Write Review Modal -->
+    <div class="modal fade" id="writeReviewModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-vybe">
+                <div class="modal-header modal-header-vybe">
+                    <h5 class="modal-title text-uppercase fw-bold">Write a Review</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="writeReviewForm">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label-vybe">Rating</label>
+                            <select id="reviewRatingSelect" class="form-select form-control-vybe" required>
+                                <option value="5">★★★★★ (5 Stars - Exceptional)</option>
+                                <option value="4">★★★★☆ (4 Stars - Very Good)</option>
+                                <option value="3">★★★☆☆ (3 Stars - Average)</option>
+                                <option value="2">★★☆☆☆ (2 Stars - Poor)</option>
+                                <option value="1">★☆☆☆☆ (1 Star - Terrible)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label-vybe">Review Title</label>
+                            <input type="text" id="reviewTitleInput" class="form-control form-control-vybe" placeholder="e.g., Perfect heavy fabric weight">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label-vybe">Review Comments</label>
+                            <textarea id="reviewCommentInput" class="form-control form-control-vybe" rows="4" placeholder="Share your experience with fit, comfort, and fabric..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="button" class="btn btn-vybe-dark" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-vybe">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-vybe">
+        <div class="container text-center text-muted" style="font-size: 0.8rem;">
+            &copy; 2026 VYBE Clothing Inc. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core JS -->
+    <script src="/frontend/js/main.js"></script>
+    <script src="/frontend/js/products.js"></script>
+</body>
+</html>

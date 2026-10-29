@@ -11,7 +11,7 @@ async function initCheckoutPage() {
     const cart = getCart();
     if (cart.length === 0) {
         showToast("Your shopping bag is empty. Redirecting to shop...", "info");
-        setTimeout(() => { window.location.href = "/shop.html"; }, 1500);
+        setTimeout(() => { window.location.href = "shop.html"; }, 1500);
         return;
     }
 
@@ -239,7 +239,7 @@ function renderOrderConfirmation(order) {
                         <a href="/orders.html" class="btn btn-vybe">
                             <i class="bi bi-box-seam me-2"></i> TRACK IN MY ORDERS
                         </a>
-                        <a href="/shop.html" class="btn btn-vybe-outline">
+                        <a href="shop.html" class="btn btn-vybe-outline">
                             CONTINUE SHOPPING
                         </a>
                     </div>

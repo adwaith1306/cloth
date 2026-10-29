@@ -68,7 +68,7 @@ if os.path.isdir(frontend_dir):
 
     @app.get("/{page_name}.html", include_in_schema=False)
     def html_page(page_name: str):
-        """Allows direct navigation like /shop.html, /cart.html, /product.html."""
+        """Allows direct navigation like shop.html, cart.html, /product.html."""
         file_path = os.path.join(frontend_dir, f"{page_name}.html")
         if os.path.exists(file_path):
             return FileResponse(file_path)

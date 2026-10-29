@@ -10,7 +10,7 @@ async function checkAdminAuth() {
     if (!user || user.role !== "admin") {
         showToast("Administrative access required.", "danger");
         setTimeout(() => {
-            window.location.href = "/login.html";
+            window.location.href = "login.html";
         }, 800);
         return false;
     }

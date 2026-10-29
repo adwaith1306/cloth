@@ -143,11 +143,11 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### Step 6: Open the Website
-- **Storefront:** Visit `http://localhost:8000/` or `http://localhost:8000/index.html` in your browser.
-- **Admin Portal:** Visit `http://localhost:8000/admin/index.html`.
+- **Storefront:** Visit `http://localhost:8000/` or `http://localhost:8000index.html` in your browser.
+- **Admin Portal:** Visit `http://localhost:8000/adminindex.html`.
 - **Interactive Swagger API Docs:** Visit `http://localhost:8000/docs`.
 
-*(Optional)* If you prefer using VS Code Live Server or external static hosting (e.g. `http://127.0.0.1:5500/frontend/index.html`), the frontend automatically detects the port difference and routes all REST API requests to `http://localhost:8000/api` through configured CORS.
+*(Optional)* If you prefer using VS Code Live Server or external static hosting (e.g. `http://127.0.0.1:5500/frontendindex.html`), the frontend automatically detects the port difference and routes all REST API requests to `http://localhost:8000/api` through configured CORS.
 
 ---
 
@@ -157,7 +157,7 @@ The database comes pre-loaded with sample accounts (you can also use the **1-Cli
 
 | Role | Email | Password | Access Capabilities |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@vybe.com` | `VybeAdmin2026!` | Access `/admin/index.html`, manage orders, create products, restock variants, manage coupons |
+| **Administrator** | `admin@vybe.com` | `VybeAdmin2026!` | Access `/adminindex.html`, manage orders, create products, restock variants, manage coupons |
 | **Customer** | `alex@vybe.com` | `Customer123!` | Standard customer account with sample past order and saved Mumbai shipping address |
 
 ### Active Promotional Coupons:

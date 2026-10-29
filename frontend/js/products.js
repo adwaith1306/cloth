@@ -300,7 +300,7 @@ async function initProductDetailPage() {
     const slug = urlParams.get("slug") || urlParams.get("id");
 
     if (!slug) {
-        window.location.href = "/shop.html";
+        window.location.href = "shop.html";
         return;
     }
 
@@ -310,7 +310,7 @@ async function initProductDetailPage() {
             container.innerHTML = `
                 <div class="col-12 text-center py-5">
                     <h3 class="text-uppercase fw-bold">Product Not Found</h3>
-                    <a href="/shop.html" class="btn btn-vybe mt-3">RETURN TO SHOP</a>
+                    <a href="shop.html" class="btn btn-vybe mt-3">RETURN TO SHOP</a>
                 </div>
             `;
             return;

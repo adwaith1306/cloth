@@ -56,7 +56,7 @@ async function authFetch(endpoint, options = {}) {
         if (window.location.pathname.includes("account.html") || 
             window.location.pathname.includes("orders.html") || 
             window.location.pathname.includes("admin")) {
-            window.location.href = "/login.html";
+            window.location.href = "login.html";
         }
     }
     return response;
@@ -161,7 +161,7 @@ function updateNavAuth() {
                     <li><a class="dropdown-item py-2" href="/orders.html"><i class="bi bi-box-seam me-2"></i> My Orders</a></li>
                     ${isAdmin ? `
                         <li><hr class="dropdown-divider border-secondary"></li>
-                        <li><a class="dropdown-item py-2 text-warning" href="/admin/index.html"><i class="bi bi-speedometer2 me-2"></i> Admin Portal</a></li>
+                        <li><a class="dropdown-item py-2 text-warning" href="/adminindex.html"><i class="bi bi-speedometer2 me-2"></i> Admin Portal</a></li>
                     ` : ''}
                     <li><hr class="dropdown-divider border-secondary"></li>
                     <li><a class="dropdown-item py-2 text-danger" href="javascript:void(0)" onclick="handleLogout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
@@ -170,7 +170,7 @@ function updateNavAuth() {
         `;
     } else {
         userContainer.innerHTML = `
-            <a href="/login.html" class="nav-icon-btn d-flex align-items-center gap-2 text-decoration-none">
+            <a href="login.html" class="nav-icon-btn d-flex align-items-center gap-2 text-decoration-none">
                 <i class="bi bi-person"></i>
                 <span class="d-none d-md-inline tracking-wider-custom" style="font-size: 0.75rem; font-weight: 700;">LOGIN</span>
             </a>
@@ -182,7 +182,7 @@ function handleLogout() {
     clearAuth();
     showToast("Logged out successfully.", "info");
     setTimeout(() => {
-        window.location.href = "/index.html";
+        window.location.href = "index.html";
     }, 500);
 }
 
